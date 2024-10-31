@@ -1,0 +1,14 @@
+
+
+let day ="수요일";
+
+switch (day) {
+  case `토요일`:
+  case `일요일`:
+   console.log(`${day}은 주말입니다`);    
+    break;
+
+  default:
+    console.log(`${day}은 주말이 아닙니다 ㅜㅜ`);
+    break;
+}
