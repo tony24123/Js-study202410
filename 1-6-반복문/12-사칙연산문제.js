@@ -35,9 +35,9 @@ let qNum = 1;
 
 //난이도 설정
 let level = 0;
-let topLevel = 999 - 100 + 1; //상
-let midLevel = 99 - 10 + 1;   //중
-let bottomLevel = 9 - 1 + 1;  //하
+let topLevel = 999 - 100 + 1; //상 세자리수 만들기
+let midLevel = 99 - 10 + 1;   //중 두자리수 만들기
+let bottomLevel = 9 - 1 + 1;  //하 한자리수 만들기
 
 let chanceAnswer = prompt(`난이도를 [상] [중] [하]로 입력하세요.`);
 alert(`0을 입력하시면 게임이 종료됩니다.`);
@@ -51,6 +51,7 @@ if (chanceAnswer == `상`) {
 
 //게임 시작
 while (true) {
+  //랜덤 두 수 설정
   let num1 = Math.floor(Math.random() * level);
   let num2 = Math.floor(Math.random() * level);
   
@@ -75,7 +76,6 @@ while (true) {
   } else if (codeNum === 2) {
     codeName = `-`;
     sum = num1 - num2;
-
     //같은 수가 나오면 랜덤 숫자 재생성
     if (num1 === num2) {
       continue;
@@ -84,7 +84,8 @@ while (true) {
     codeName = `*`;
     sum = num1 * num2;
   }
-  //문제 조작
+
+  //문제 조작 (큰 수가 앞에 자리하게 만들기)
   if (num1 < num2) {
     let temp = num1;
     num1 = num2;
@@ -103,6 +104,7 @@ while (true) {
       wrongAnswer++;
     }
   } else {
+    // 0입력시 게임 종료
     alert(`게임이 종료됐습니다.`);
     alert(`총 정답갯수 : ${correctAnswer} 오답갯수 : ${wrongAnswer}`);
     break;
