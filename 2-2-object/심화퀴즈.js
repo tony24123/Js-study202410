@@ -16,23 +16,52 @@ Q. 회원의 아이디정보와 비밀번호 정보가 들어있는 객체 user�
 */
 
 let userInfo = {
-    userList: [
-      {
-        account: 'kim1234',
-        password: 'kkk1234',
-        username: '김두한',
-      },
-      {
-        account: 'park9876',
-        password: 'ppp9999',
-        username: '박찬호',
-      },
-      {
-        account: 'hong7766',
-        password: 'hhh1234',
-        username: '홍길동',
-      },
-    ],
-  };
+  userList: [
+    {
+      account: "kim1234",
+      password: "kkk1234",
+      username: "김두한",
+    },
+    {
+      account: "park9876",
+      password: "ppp9999",
+      username: "박찬호",
+    },
+    {
+      account: "hong7766",
+      password: "hhh1234",
+      username: "홍길동",
+    },
+  ],
+};
+let idx;
+let inputPassword;
 
-  
+//로그인하기
+while (true) {
+  let inputId = prompt(`아이디를 입력해주세요.`);
+
+  let flag = false;
+  //입력된 아이디가 있는지 확인
+  for (let user of userInfo.userList) {
+    if (inputId === user.account) {
+      flag = true;
+      idx = userInfo.userList.indexOf(user);
+    }
+  }
+  // if문에 걸렸는지 체크
+  if (flag === true) {
+    inputPassword = prompt(`비밀번호를 입력해주세요.`);
+  } else {
+    alert(`아이디가 틀렸습니다.`);
+    continue;
+  }
+  //입력 비밀번호 정답 구분
+  if (inputPassword === userInfo.userList[idx].password) {
+    alert("로그인에 성공하였습니다.");
+    break;
+  } else {
+    alert(`비밀번호가 틀렸습니다.`);
+    continue;
+  }
+}

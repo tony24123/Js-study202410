@@ -19,7 +19,7 @@ let article1 = {
   
   
   console.log(article1.title);
-  console.log(typeof article1.writer.account);
+  console.log(article1.writer.account);
   console.log(article1.writer.emailVerify);
   
   // 객체 프로퍼티 수정하기
