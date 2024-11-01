@@ -24,3 +24,19 @@ console.log(copy1);
 
 let copy2 = numbers.slice(); // 둘다 생략시 처음부터 끝까지 -> 전체복제_
 console.log(copy2);
+
+// splice() : 배열의 요소 추가 삭제 ( 중간에서 작업 가능 )
+// 주의사항 : 배열 원본이 손상됨 ( 복사 후 작업 추천 )
+console.log(`========================`);
+
+console.log(foodList);
+
+foodList.splice(2 , 1); //2번 index부터 1개를 지움
+console.log(foodList);
+
+foodList.splice(0 , 1 , `마라탕`); //0번 자리에 한개를 지우고 그 자리에 마라탕을 넣는다
+console.log(foodList);
+
+//중간 삽입 가능
+foodList.splice(2,0,'짜장면'); //2번 자리에서 0개 지우고 짜장면 넣는다 -> 2번자리에 짜장면 삽입
+console.log(foodList);
