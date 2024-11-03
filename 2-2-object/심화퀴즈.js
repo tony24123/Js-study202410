@@ -34,34 +34,59 @@ let userInfo = {
     },
   ],
 };
+
 let idx;
 let inputPassword;
 
-//로그인하기
 while (true) {
-  let inputId = prompt(`아이디를 입력해주세요.`);
+  let login = +prompt(`1 : 로그인\n2 : 회원가입`);
+  //로그인
+  if (login === 1) {
+    let inputId = prompt(`아이디를 입력해주세요.`);
 
-  let flag = false;
-  //입력된 아이디가 있는지 확인
-  for (let user of userInfo.userList) {
-    if (inputId === user.account) {
-      flag = true;
-      idx = userInfo.userList.indexOf(user);
+    let flag = false;
+    //입력된 아이디가 있는지 확인
+    for (let user of userInfo.userList) {
+      if (inputId === user.account) {
+        flag = true;
+        idx = userInfo.userList.indexOf(user);
+      }
     }
-  }
-  // if문에 걸렸는지 체크
-  if (flag === true) {
-    inputPassword = prompt(`비밀번호를 입력해주세요.`);
+    // if문에 걸렸는지 체크
+    if (flag === true) {
+      inputPassword = prompt(`비밀번호를 입력해주세요.`);
+    } else {
+      alert(`아이디가 틀렸습니다.`);
+      continue;
+    }
+    //입력 비밀번호 정답 구분
+    if (inputPassword === userInfo.userList[idx].password) {
+      alert("로그인에 성공하였습니다.");
+      break;
+    } else {
+      alert(`비밀번호가 틀렸습니다.`);
+      continue;
+    }
+  } else if (login === 2) {
+    let createAccount = prompt(`새로 만들 아이디를 입력해주세요.`);
+
+    let flag = false;
+    //입력된 아이디가 있는지 확인
+    for (let user of userInfo.userList) {
+      if (createAccount === user.account) {
+        flag = true;
+      }
+    }
+
+    if (flag === true) {
+      alert(`이미 가입되어 있는 아이디입니다.`);
+      continue;
+    }
+    //가입이 가능한 아이디일시
+    alert(`사용 가능한 아이디입니다.`);
+    let createPassword = prompt(`비밀번호를 입력해주세요`);
+    let createUserName = prompt(`사용자 이름을 입력해주세요`);
   } else {
-    alert(`아이디가 틀렸습니다.`);
-    continue;
-  }
-  //입력 비밀번호 정답 구분
-  if (inputPassword === userInfo.userList[idx].password) {
-    alert("로그인에 성공하였습니다.");
-    break;
-  } else {
-    alert(`비밀번호가 틀렸습니다.`);
-    continue;
+    alert(`1 또는 2를 입력해주세요.`);
   }
 }
