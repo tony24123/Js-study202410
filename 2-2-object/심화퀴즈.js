@@ -32,6 +32,7 @@ let userInfo = {
       password: "hhh1234",
       username: "홍길동",
     },
+    
   ],
 };
 
@@ -87,10 +88,12 @@ while (true) {
     let createPassword = prompt(`비밀번호를 입력해주세요`);
     let createUserName = prompt(`사용자 이름을 입력해주세요`);
 
-    let newArray = { account, password, username };
-    newArray.account.push(`${createAccount}`);
-    newArray.password.push(`${createPassword}`);
-    newArray.username.push(`${createUserName}`);
+    //userList 배열에 새로운 회원 정보 객체 집어넣기
+    let newArray = { 
+      account: createAccount,
+      password: createPassword,
+      username: createUserName
+     };
     userInfo.userList.push(newArray);
   } else {
     alert(`1 또는 2를 입력해주세요.`);

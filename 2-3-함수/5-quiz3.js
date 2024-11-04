@@ -38,3 +38,18 @@ function min2(n1, n2) {
   let result3 = isEven(3);
   console.log(`result3: ${result3}`);
   
+
+  //n개의 정수 최솟값찾기
+  function min(...numberList){
+    let minnum = numberList[0]
+    for(i=1;i<=numberList.length;i++){
+        if(numberList[i]<=minnum){
+            minnum = numberList[i];
+        }
+    }
+    return minnum;
+  }
+
+  let result4 = min(9,76,-90,-1000,555,780,-777);
+  console.log(`result: ${result4}`);
+  
