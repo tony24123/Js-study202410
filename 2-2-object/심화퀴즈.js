@@ -61,7 +61,7 @@ while (true) {
     }
     //입력 비밀번호 정답 구분
     if (inputPassword === userInfo.userList[idx].password) {
-      alert("로그인에 성공하였습니다.");
+      alert(`${userInfo.userList[idx].username}님 로그인에 성공하였습니다.`);
       break;
     } else {
       alert(`비밀번호가 틀렸습니다.`);
@@ -86,6 +86,12 @@ while (true) {
     alert(`사용 가능한 아이디입니다.`);
     let createPassword = prompt(`비밀번호를 입력해주세요`);
     let createUserName = prompt(`사용자 이름을 입력해주세요`);
+
+    let newArray = { account, password, username };
+    newArray.account.push(`${createAccount}`);
+    newArray.password.push(`${createPassword}`);
+    newArray.username.push(`${createUserName}`);
+    userInfo.userList.push(newArray);
   } else {
     alert(`1 또는 2를 입력해주세요.`);
   }
