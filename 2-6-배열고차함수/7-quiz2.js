@@ -161,7 +161,7 @@ console.log(totalByCity);
 console.log(`++++++++++++++++++++++++++++++++`);
 
 const tradeValueUp70000 = traders.filter((n) => n.value >= 700000);
-console.log(tradeValueUp70000);
+// console.log(tradeValueUp70000);
 
 let tradeValueUp70000List = {};
 for (let tradeList of tradeValueUp70000) {
@@ -189,13 +189,83 @@ console.log(JSON.stringify(tradeValueUp70000List, null, 2));
 
     
 */
+
 console.log(`#############################`);
 
+// 총액과 횟수를 가진 객체 생성
+const trsDataByName = traders.reduce((sumCountObj, trs) => { 
+  const name = trs.trader.name;
+  if (sumCountObj[name] === undefined) { // 이 이름이 처음 등장했다면
+    sumCountObj[name] = { sum: trs.value, count: 1 };
+  } else { // 이미 저장된 이름
+    sumCountObj[name].sum += trs.value;
+    sumCountObj[name].count++;
+  }
+  return sumCountObj;
+}, {});
 
+console.log('=====================');
+// console.log(trsDataByName);
+
+/*
+  {
+    '김철수': 6200000 / 5,
+    '박영희': 1250000 / 2
+  }
+*/
+
+// 평균을 구해서 다시 맵핑
+// 객체 전용 반복문 for ~ in
+// const ooo = { a: 1, b: 2, c: 3, d: 4 };
+for (const key in trsDataByName) {
+  trsDataByName[key] = trsDataByName[key].sum / trsDataByName[key].count;
+}
+
+console.log(trsDataByName);
+
+
+console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!`);
 
 
 // 7. **2022년과 2023년 각각에서 가장 많은 거래를 한 거래자의
 //   이름과 그 거래 횟수를 출력해주세요.**
+
+//강사님 풀이
+/*
+  {
+    '2022_김철수': 1,
+    '2022_박영희': 3,
+    '2023_김철수': 2,
+    '2023_박영희': 1,
+  }
+*/
+
+// const highestTrsData = traders.reduce((yearNameObj, trs) => { 
+
+//   const key = `${trs.year}_${trs.trader.name}`;
+//   if (yearNameObj[key] === undefined) {
+//     yearNameObj[key] = 1;
+//   } else {
+//     yearNameObj[key]++;
+//   }
+
+//   // 연도별 최대 거래 횟수 찾기
+//   const yearMaxKey = `max_${trs.year}`; // max_2022, max_2023
+//   if (
+//     yearNameObj[yearMaxKey] === undefined // 아직 max값이 한번도 결정되지 않음
+//     || yearNameObj[key] > yearNameObj[yearMaxKey].count // 현재 루프회차에서 새로운 그 연도 최대거래횟수가 등장한 경우
+//   ) {
+//     yearNameObj[yearMaxKey] = {
+//       name: trs.trader.name,
+//       count: yearNameObj[key]
+//     };
+//   }
+
+//   return yearNameObj;
+// }, {});
+
+// console.log(highestTrsData);
+
 
 const trader2022 = traders.filter((n) => n.year === 2022);
 const counter = trader2022.reduce((countObj, cur) => {
@@ -213,7 +283,7 @@ console.log("=======");
 let max = 0;
 let maxtr = "";
 for (const key in counter) {
-  // console.log(counter[key]);
+  console.log(counter[key]);
   if (counter[key] > max) {
     max = counter[key];
     maxtr = key;
@@ -236,12 +306,41 @@ console.log(newObj);
 // }
 // console.log(maxtr);
 
+console.log(`&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&`);
+
+
 // 8. **모든 거래 중 거래액이 중간값인
 //   거래의 정보(거래자 이름, 도시, 연도, 거래액)를 출력해주세요.**
+//정렬은 원본을 손상시킴, 복제 후 진행 slice()
+// const midValue = traders.sort((a, b) => b.value - a.value);
 
-const midValue = traders.sort((a, b) => b.value - a.value);
+// console.log(midValue[Math.floor(midValue.length / 2) + (midValue.length % 2)]);
 
-console.log(midValue[midValue.length / 2 + (midValue.length % 2)]);
+// 거래액을 오름차정렬
+// 정렬은 원본을 손상시킴, 복제 후 진행
+console.log('===================================');
+
+const sortedTraders = traders.slice().sort((trs1, trs2) => trs1.value - trs2.value);
+// console.log(sortedTraders);
+
+// 가운데 인덱스 찾기
+// 9개짜리 배열에서 인덱스의 범위는 0 ~ 8 -> 4가 중앙인덱스
+// 10개짜리 배열에서는 중앙인덱스가 애매하다
+// [10, 20, 40, 50]
+const middleIndex = Math.floor(sortedTraders.length / 2);
+
+// 중간 거래액
+let middleTradeValue;
+// 데이터가 홀수개 인경우
+if (sortedTraders.length % 2 === 1) {
+  middleTradeValue = sortedTraders[middleIndex].value;
+} else { // 데이터가 짝수개인 경우
+  const firstMiddleValue = sortedTraders[middleIndex].value; 
+  const secondMiddleValue = sortedTraders[middleIndex - 1].value; 
+  middleTradeValue = (firstMiddleValue + secondMiddleValue) / 2;
+}
+
+console.log(`중간 거래액: ${middleTradeValue}`);
 
 // 9. **각 도시에서 진행된 거래의 수를 계산해주세요.
 //   결과는 `{도시이름: 거래수}` 형태의 객체여야 합니다.**
