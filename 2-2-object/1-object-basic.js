@@ -10,7 +10,7 @@ let inject = false;
 let inject2 = true;
 
 let dog1 = ['초코', 3, 30, 10, 1, false, true];
-
+console.log(dog1);
 // 객체
 let myDog1 = {
   name: '초코', // 프로퍼티 (속성)

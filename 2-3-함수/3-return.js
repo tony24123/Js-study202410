@@ -37,8 +37,8 @@ function add(n1, n2) {
   
   let arr = [1, 2, 3, 4];
   
-  let xx = arr.push(5, 6, 10, 20);
-  console.log(`xx : ${xx}`);
+  arr.push(5, 6, 10, 20);
+  console.log(`xx : `, arr);
   
   
   let yyy = console.log('hello');

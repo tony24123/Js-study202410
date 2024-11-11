@@ -40,3 +40,5 @@ console.log(foodList);
 //중간 삽입 가능
 foodList.splice(2,0,'짜장면'); //2번 자리에서 0개 지우고 짜장면 넣는다 -> 2번자리에 짜장면 삽입
 console.log(foodList);
+
+
