@@ -45,11 +45,8 @@
       console.log("스크롤 이벤트 발생!");
     };
 
-    // 스로틀을 적용한 스크롤 이벤트 핸들러
-    const throttledScroll = throttle(handleScroll, 2000);
-
     // 스크롤 이벤트 리스너 추가
-    window.addEventListener('scroll', throttledScroll);
+    window.addEventListener('scroll', throttle(handleScroll, 2000));
   </script>
 
 </body>

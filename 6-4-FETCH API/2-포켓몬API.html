@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .img-box {
+        display: flex;
+        flex-wrap: wrap;
+        width: 80%;
+      }
+      .img-box img {
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="img-box"></div>
+    <button id="prev">이전</button>
+    <button id="next">다음</button>
+
+    <script>
+      const $prev = document.getElementById("prev");
+      const $next = document.getElementById("next");
+
+      let pkInfo = [];
+      let offset = 0;
+
+      $prev.addEventListener("click", (e) => {
+        offset -= 20;
+        getPokemon();
+      });
+      $next.addEventListener("click", (e) => {
+        offset += 20;
+        getPokemon();
+      });
+
+      // 포켓몬 api 통신
+      function getPokemon() {
+        fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`)
+          .then((res) => res.json())
+          .then((result) => {
+            //   console.log(result.results);
+            for (let pkMon of result.results) {
+              //   console.log(pkMon.url); //url들만 추출
+              fetch(pkMon.url)
+                .then((res) => res.json())
+                .then((pkmInfo) => {
+                  // pkInfo.push(pkmInfo.sprites.back_default); //포켓몬 이미지링크만 배열에 담기
+                  const $img = document.createElement("img"); //이미지 태그 생성
+                  $img.src = pkmInfo.sprites.front_default; //이미지 속성에 이미지 부여
+
+                  // 이미지 추가 전에 img-box의 자식 개수를 확인하여 20개 초과 시 첫 번째 이미지 제거
+                  const $imgBox = document.querySelector(".img-box");
+                  if ($imgBox.children.length >= 20) {
+                    $imgBox.removeChild($imgBox.firstChild);
+                  }
+
+                  $imgBox.append($img);
+                  //   document.querySelector(".img-box").append($img); //이미지 박스에 이미지 렌더링
+                });
+            }
+            console.log(pkInfo); //pkInfo 포켓몬 이미지
+          });
+      }
+      getPokemon();
+    </script>
+  </body>
+</html>
